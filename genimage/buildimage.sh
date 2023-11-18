@@ -47,5 +47,5 @@ rm -rf tmp/
 
 # copy to host
 mv input/{boot,rootfs}.ext4 images
-chown -R $HOSTUID:$HOSTGID input
-cp images/* output/
+chown -R $HOSTUID:$HOSTGID images
+cp -a images/* output/
