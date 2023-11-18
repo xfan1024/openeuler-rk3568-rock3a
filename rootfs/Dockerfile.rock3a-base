@@ -1,0 +1,10 @@
+FROM xfan1024/openeuler:22.03-aarch64
+RUN dnf install -y iputils iproute wget curl vim nano NetworkManager \
+    util-linux findutils passwd shadow hostname \
+    sudo openssh-server openssh-clients htop tmux gdisk parted \
+    systemd systemd-resolved systemd-udev \
+    && dnf groupinstall -y "Development Tools" \
+    && echo 'root:openEuler12#$' | chpasswd \
+    && systemctl enable systemd-resolved
+COPY overlay/ /
+RUN for rpmdir in /rpms/*; do dnf install -y $rpmdir/*.rpm -y; done && rm -rf /rpms && dnf clean all
